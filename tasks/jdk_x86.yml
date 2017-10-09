@@ -1,0 +1,33 @@
+---
+- name: x86 - ensure jdk is NOT installed as an rpm
+  yum: name=jdk state=absent
+  tags:
+    - java
+
+- name: x86 - ensure /usr/java is absent
+  file: path=/usr/java state=absent
+  tags:
+    - java
+
+- name: x86 - ensure glibc.x86 is installed
+  yum: name=glibc.i686 state=present
+  tags:
+    - java
+
+- name: x86 - download the jdk binary
+  get_url:
+    url: "{{ java_x86_url }}"
+    dest: "{{ java_x86_url_dest }}"
+  tags:
+    - java
+
+- name: x86 - install the jdk binary
+  shell: "tar zx -C /usr -f {{ java_x86_url_dest }}"
+  ignore_errors: yes
+  tags:
+    - java
+
+- name: x86 - ensure /etc/alternatives/java symlink exists
+  file: src=/usr/java/default/bin/java dest=/etc/alternatives/java owner=root group=root state=link
+  tags:
+    - java

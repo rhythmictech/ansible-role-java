@@ -1,0 +1,14 @@
+---
+# default variables for java
+java_version: 1.8.0
+
+# package name for jdk, since Oracle seems to be changing this with Java 8
+jdk_package: jdk
+
+# use 64bit by default
+java_x64: True
+
+# if using 32bit, where to source the file and where to place it
+java_x86_url: ""
+java_x86_url_dest: ""
+

@@ -1,0 +1,5 @@
+---
+- name: x64 - ensure jdk is installed
+  yum: name={{ jdk_package }} state=present
+  tags:
+    - java
