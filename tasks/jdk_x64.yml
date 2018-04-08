@@ -1,5 +1,26 @@
 ---
-- name: x64 - ensure jdk is installed
-  yum: name={{ jdk_package }} state=present
-  tags:
-    - java
+  # tasks for java
+  
+  - name: ensure Oracle JDK is installed
+    yum: name="java-{{ java_version }}-oracle" state=present
+    tags: ['java']
+  
+  # so that we always have JAVA_HOME set for legacy components
+  - name: ensure /etc/profile.d/java.sh exists
+    template:
+      src: etc.profile.d.java.sh
+      dest: /etc/profile.d/java.sh
+      owner: root
+      group: root
+      mode: 0644
+    tags: ['java']
+  
+  - name: config dynamic library paths
+    copy:
+      src: etc.ld.so.conf.d.jdk-oracle.conf
+      dest: /etc/ld.so.conf.d/jdk-oracle.conf
+      owner: root
+      group: root
+      mode: 0644
+    tags: ['java']
+  
