@@ -2,7 +2,7 @@
   # tasks for java
   
   - name: ensure Oracle JDK is installed
-    shell: "yum --disableexcludes=all java-{{ java_version }}-oracle"
+    shell: "yum install --disableexcludes=all java-{{ java_version }}-oracle"
     tags: ['java']
   
   # so that we always have JAVA_HOME set for legacy components
