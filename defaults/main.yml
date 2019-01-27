@@ -1,6 +1,12 @@
 ---
-# default variables for java
+# major version of Java to install
+#  - 1.7.0
+#  - 1.8.0
+#  - 11 (OpenJDK only)
 java_version: 1.8.0
+
+# openjdk or oracle
+java_provider: openjdk
 
 # use 64bit by default
 java_x64: True

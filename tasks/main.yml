@@ -1,24 +1,10 @@
 ---
-# tasks for java
 - name: ensure jdk x64 is installed
   include: jdk_x64.yml
   when: java_x64|bool
-  tags:
-    - java
+  tags: ['java']
 
 - name: ensure jdk x86 is installed
   include: jdk_x86.yml
   when: not java_x64|bool
-  tags:
-    - java
-
-# so that we always have JAVA_HOME set for legacy components
-- name: ensure /etc/profile.d/java.sh exists 
-  template:
-    src: etc.profile.d.java.sh
-    dest: /etc/profile.d/java.sh
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - java
+  tags: ['java']
