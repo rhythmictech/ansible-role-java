@@ -8,6 +8,10 @@ java_version: 1.8.0
 # openjdk or oracle
 java_provider: openjdk
 
+# install developer tools if using OpenJDK
+#  this is almost never required for app servers
+java_install_devel: false
+
 # use 64bit by default
 java_x64: True
 

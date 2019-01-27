@@ -3,6 +3,11 @@
   yum: name='java-{{ java_version }}-{{ java_provider }}' state=installed disable_excludes=all
   tags: ['java']
 
+- name: install OpenJDK devel tools
+  yum: name='java-{{ java_version }}-openjdk-devel' state=installed disable_excludes=all
+  when: java_install_devel
+  tags: ['java']
+
 - name: place ld config for OpenJDK
   template:
     src: 'etc.ld.so.conf.d.java.conf.j2'
