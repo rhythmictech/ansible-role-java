@@ -31,3 +31,13 @@
   file: src=/usr/java/default/bin/java dest=/etc/alternatives/java owner=root group=root state=link
   tags:
     - java
+
+# so that we always have JAVA_HOME set for legacy components
+- name: ensure /etc/profile.d/java.sh exists
+  copy:
+    content: "/usr/java/default\n"
+    dest: /etc/profile.d/java.sh
+    owner: root
+    group: root
+    mode: 0644
+  tags: ['java']

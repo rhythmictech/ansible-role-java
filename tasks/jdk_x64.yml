@@ -1,26 +1,45 @@
 ---
-  # tasks for java
-  
-  - name: ensure Oracle JDK is installed
-    shell: "yum install --disableexcludes=all -y java-{{ java_version }}-oracle"
-    tags: ['java']
-  
-  # so that we always have JAVA_HOME set for legacy components
-  - name: ensure /etc/profile.d/java.sh exists
-    template:
-      src: etc.profile.d.java.sh
-      dest: /etc/profile.d/java.sh
-      owner: root
-      group: root
-      mode: 0644
-    tags: ['java']
-  
-  - name: config dynamic library paths
-    copy:
-      src: etc.ld.so.conf.d.jdk-oracle.conf
-      dest: /etc/ld.so.conf.d/jdk-oracle.conf
-      owner: root
-      group: root
-      mode: 0644
-    tags: ['java']
-  
+- name: install java rpm
+  yum: name='java-{{ java_version }}-{{ java_provider }}' state=installed disable_excludes=all
+  tags: ['java']
+
+- name: install OpenJDK devel tools
+  yum: name='java-{{ java_version }}-openjdk-devel' state=installed disable_excludes=all
+  when: java_install_devel
+  tags: ['java']
+
+- name: place ld config for OpenJDK
+  template:
+    src: 'etc.ld.so.conf.d.java.conf.j2'
+    dest: '/etc/ld.so.conf.d/java.conf'
+    owner: root
+    group: root
+    mode: 0644
+  register: java_ldconfig
+  tags: ['java']
+
+- name: refresh ld config
+  shell: '/sbin/ldconfig'
+  when: java_ldconfig.changed
+  tags: ['java']
+
+# Configures a JAVA_HOME for Tomcat et. al for Oracle JDK
+#  OpenJDK doesn't require this
+- name: ensure JAVA_HOME is set for Oracle JDK
+  lineinfile:
+    path: '/etc/java/java.conf'
+    regexp: '^#?JAVA_HOME=.*'
+    line: 'JAVA_HOME=/usr/java/default'
+  when: java_provider == 'oracle'
+  tags: ['java']
+
+# so that we always have JAVA_HOME set for legacy components
+# TODO: Remove this in favor of /etc/java/java.conf or role-specific settings
+- name: ensure /etc/profile.d/java.sh exists
+  template:
+    src: 'etc.profile.d.java.sh.j2'
+    dest: /etc/profile.d/java.sh
+    owner: root
+    group: root
+    mode: 0644
+  tags: ['java']
