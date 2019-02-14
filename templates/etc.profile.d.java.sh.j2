@@ -1,6 +1,8 @@
 # {{ ansible_managed }}
 {% if java_provider == 'oracle' %}
 export JAVA_HOME=/usr/java/default
-{% else %}
+{% elif ansible_distribution_major_version == '7' %}
 export JAVA_HOME=/usr/lib/jvm/jre-{{ java_version }}-openjdk
+{% else %}
+export JAVA_HOME=/usr/lib/jvm/jre-{{ java_version }}-openjdk.x86_64
 {% endif %}
