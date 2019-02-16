@@ -1,6 +1,6 @@
 ---
-- name: install java rpm
-  yum: name='java-{{ java_version }}-{{ java_provider }}' state=installed disable_excludes=all
+- name: install java packages
+  yum: name=['java-{{ java_version }}-{{ java_provider }}','javapackages-tools'] state=installed disable_excludes=all
   tags: ['java']
 
 - name: install OpenJDK devel tools
@@ -23,14 +23,13 @@
   when: java_ldconfig.changed
   tags: ['java']
 
-# Configures a JAVA_HOME for Tomcat et. al for Oracle JDK
-#  OpenJDK doesn't require this
-- name: ensure JAVA_HOME is set for Oracle JDK
-  lineinfile:
-    path: '/etc/java/java.conf'
-    regexp: '^#?JAVA_HOME=.*'
-    line: 'JAVA_HOME=/usr/java/default'
-  when: java_provider == 'oracle'
+- name: place java config file
+  template:
+    src: 'etc.java.java.conf.j2'
+    dest: '/etc/java/java.conf'
+    owner: root
+    group: root
+    mode: 0644
   tags: ['java']
 
 # so that we always have JAVA_HOME set for legacy components

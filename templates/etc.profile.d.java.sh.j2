@@ -2,5 +2,9 @@
 {% if java_provider == 'oracle' %}
 export JAVA_HOME=/usr/java/default
 {% else %}
-export JAVA_HOME=/usr/lib/jvm/jre-{{ java_version }}-openjdk
+{% if java_install_devel %}
+export JAVA_HOME=/usr/lib/jvm/java
+{% else %}
+export JAVA_HOME=/usr/lib/jvm/jre
+{% endif %}
 {% endif %}
