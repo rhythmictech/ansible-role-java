@@ -1,0 +1,33 @@
+# Ansible managed
+
+# System-wide Java configuration file  -*- sh -*-
+
+# Location of jar files on the system
+JAVA_LIBDIR=/usr/share/java
+
+# Location of arch-specific jar files on the system
+JNI_LIBDIR=/usr/lib/java
+
+# Root of all JVM installations
+{% if java_provider == 'oracle' %}
+JVM_ROOT=/usr/java
+{% else %}
+JVM_ROOT=/usr/lib/jvm
+{% endif %}
+
+{% if java_provider == 'oracle' %}
+JAVA_HOME=$JVM_ROOT/default
+{% else %}
+{% if java_install_devel %}
+JAVA_HOME=$JVM_ROOT/java
+{% else %}
+JAVA_HOME=$JVM_ROOT/jre
+{% endif %}
+{% endif %}
+
+# Options to pass to the java interpreter
+#JAVACMD_OPTS=
+
+# You can disable ABRT Java Connector by setting JAVA_ABRT to "off".
+# See: https://github.com/jfilak/abrt-java-connector/
+#JAVA_ABRT=off
