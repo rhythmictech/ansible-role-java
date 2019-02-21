@@ -12,7 +12,7 @@
   tags: ['java']
 
 - name: install java rpm
-  command: "yum --disableexcludes=all install -y java-{{ java_version }}-{{ java_provider }}"
+  command: "yum --disableexcludes=all install -y java-{{ java_version }}-{{ java_provider }} javapackages-tools"
   when: not java_use_ansible_yum
   tags: ['java']
 
