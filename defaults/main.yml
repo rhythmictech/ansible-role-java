@@ -19,3 +19,4 @@ java_x64: True
 java_x86_url: ""
 java_x86_url_dest: ""
 
+java_use_ansible_yum: True
