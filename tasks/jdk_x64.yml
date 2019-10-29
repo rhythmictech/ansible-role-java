@@ -1,11 +1,11 @@
 ---
 - name: install java rpm
-  yum: name=['java-{{ java_version }}-{{ java_provider }}','javapackages-tools'] state=installed disable_excludes=all
+  yum: name=['java-{{ java_version }}-{{ java_provider }}','javapackages-tools'] state=installed disable_excludes=all lock_timeout=180
   when: java_use_ansible_yum
   tags: ['java']
 
 - name: install OpenJDK devel tools
-  yum: name='java-{{ java_version }}-openjdk-devel' state=installed disable_excludes=all
+  yum: name='java-{{ java_version }}-openjdk-devel' state=installed disable_excludes=all lock_timeout=180
   when:
    - java_install_devel
    - java_use_ansible_yum
