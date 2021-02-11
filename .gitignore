@@ -1,0 +1,13 @@
+external_roles
+*.vagrant
+*.swo
+*.swp
+*.pyc
+*.DS_Store
+*.retry
+.idea
+*vault*
+*callback_plugins/profile_tasks.*
+
+# autoenv
+.env
