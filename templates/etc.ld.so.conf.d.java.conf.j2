@@ -2,7 +2,7 @@
 {% if java_provider == 'oracle' %}
 /usr/java/default/jre/lib/amd64
 /usr/java/default/jre/lib/amd64/server
-{% elsif java_provider == 'amazon-corretto' %}
+{% elif java_provider == 'amazon-corretto' %}
 {% if java_default_version is version('1.8.0', '==') %}
 /usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64/jre/lib/amd64
 /usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64/jre/lib/amd64/server
