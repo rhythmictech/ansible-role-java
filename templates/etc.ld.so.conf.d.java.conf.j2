@@ -3,7 +3,7 @@
 /usr/java/default/jre/lib/amd64
 /usr/java/default/jre/lib/amd64/server
 {% else %}
-{% if java_default_version is version('1.8.0', '>') or java_default_version >= 11 %}
+{% if java_default_version is version('1.8.0', '>') or java_default_version is version('11', '>=') %}
 /usr/lib/jvm/jre/lib
 /usr/lib/jvm/jre/lib/server
 {% else %}
