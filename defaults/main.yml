@@ -3,7 +3,10 @@
 #  - 1.7.0
 #  - 1.8.0
 #  - 11 (OpenJDK only)
-java_version: 1.8.0
+java_versions:
+  - "1.8.0"
+  
+java_default_version: "1.8.0"
 
 # openjdk or oracle
 java_provider: openjdk
