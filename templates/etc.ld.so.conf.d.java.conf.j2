@@ -9,8 +9,8 @@
 {% else %}
 /usr/lib/jvm/java-{{ java_default_version }}-amazon-corretto.x86_64/lib/
 /usr/lib/jvm/java-{{ java_default_version }}-amazon-corretto.x86_64/lib/server
-{% endif %}
-{% elif java_default_version is version('1.8.0', '>') %}
+{% else %}
+{% if java_default_version is version('1.8.0', '>') %}
 /usr/lib/jvm/jre/lib
 /usr/lib/jvm/jre/lib/server
 {% else %}
