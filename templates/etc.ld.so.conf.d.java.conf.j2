@@ -1,8 +1,15 @@
 # {{ ansible_managed }}
-{% if java_provider == 'oracle' or java_provider == 'amazon-corretto' %}
+{% if java_provider == 'oracle' %}
 /usr/java/default/jre/lib/amd64
 /usr/java/default/jre/lib/amd64/server
+{% elsif java_provider == 'amazon-corretto' %}
+{% if java_default_version is version('1.8.0', '==') %}
+/usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64/jre/lib/amd64
+/usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64/jre/lib/amd64/server
 {% else %}
+/usr/lib/jvm/java-{{ java_default_version }}-amazon-corretto.x86_64/lib/
+/usr/lib/jvm/java-{{ java_default_version }}-amazon-corretto.x86_64/lib/server
+{% endif %}
 {% if java_default_version is version('1.8.0', '>') %}
 /usr/lib/jvm/jre/lib
 /usr/lib/jvm/jre/lib/server
