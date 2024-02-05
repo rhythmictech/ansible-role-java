@@ -8,7 +8,7 @@ java_versions:
   
 java_default_version: "1.8.0"
 
-# openjdk or oracle
+# openjdk, oracle or amazon-corretto
 java_provider: openjdk
 
 # install developer tools if using OpenJDK
