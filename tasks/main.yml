@@ -1,10 +1,10 @@
 ---
 - name: ensure jdk x64 is installed
-  include: jdk_x64.yml
+  include_tasks: jdk_x64.yml
   when: java_x64|bool
   tags: ['java']
 
 - name: ensure jdk x86 is installed
-  include: jdk_x86.yml
+  include_tasks: jdk_x86.yml
   when: not java_x64|bool
   tags: ['java']
