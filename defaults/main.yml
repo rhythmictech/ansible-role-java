@@ -13,7 +13,7 @@ java_provider: openjdk
 
 # install developer tools if using OpenJDK
 #  this is almost never required for app servers
-java_install_devel: false
+java_install_devel: False
 
 # use 64bit by default
 java_x64: True
@@ -23,3 +23,5 @@ java_x86_url: ""
 java_x86_url_dest: ""
 
 java_use_ansible_yum: True
+
+java_set_default_version: False
