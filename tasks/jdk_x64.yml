@@ -47,7 +47,7 @@
 - name: set default java version
   community.general.alternatives:
     name: java
-    path: "/usr/lib/jvm/java-{{ java_default_version }}-{{ java_provider }}.x86_64{{ (java_default_version == '1.8.0') | ternary('/jre/bin/java','/bin/java') }}"
+    path: "/usr/lib/jvm/java-{{ java_default_version }}-{{ java_provider }}{{ (java_default_version == '1.8.0') | ternary('/jre/bin/java','/bin/java') }}"
   when: java_set_default_version
   tags: ['java']
 
