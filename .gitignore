@@ -8,6 +8,7 @@ external_roles
 .idea
 *vault*
 *callback_plugins/profile_tasks.*
+.claude
 
 # autoenv
 .env

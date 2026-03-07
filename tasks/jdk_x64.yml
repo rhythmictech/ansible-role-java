@@ -1,21 +1,19 @@
 ---
 
 - name: install java rpm
-  yum: 
-    name: ['java-{{ item }}-{{ java_provider }}','javapackages-tools']
+  yum:
+    name: "{{ java_versions | map('regex_replace', '^(.*)$', 'java-\\1-' + java_provider) | list + ['javapackages-tools'] }}"
     state: installed
-    disable_excludes: all 
+    disable_excludes: all
     lock_timeout: 180
-  with_items: "{{ java_versions }}"
   tags: ['java']
 
 - name: install OpenJDK devel tools
-  yum: 
-    name: ['java-{{ java_version }}-{{ java_provider }}-devel']
+  yum:
+    name: "{{ java_versions | map('regex_replace', '^(.*)$', 'java-\\1-' + java_provider + '-devel') | list }}"
     state: installed
-    disable_excludes: all 
+    disable_excludes: all
     lock_timeout: 180
-  with_items: "{{ java_versions }}"
   when:
    - java_install_devel
   tags: ['java']
