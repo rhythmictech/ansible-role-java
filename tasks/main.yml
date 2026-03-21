@@ -1,10 +1,23 @@
 ---
-- name: ensure jdk x64 is installed
-  include_tasks: jdk_x64.yml
-  when: java_x64|bool
+- name: install java packages
+  ansible.builtin.dnf:
+    name: "{{ java_versions | map('regex_replace', '^(.*)$', 'java-\\1-' + java_provider) | list }}"
+    state: present
+  when: java_install_jre
   tags: ['java']
 
-- name: ensure jdk x86 is installed
-  include_tasks: jdk_x86.yml
-  when: not java_x64|bool
+- name: install java devel packages
+  ansible.builtin.dnf:
+    name: "{{ java_versions | map('regex_replace', '^(.*)$', 'java-\\1-' + java_provider + '-devel') | list }}"
+    state: present
+  when: java_install_devel
+  tags: ['java']
+
+- name: set default java version
+  ansible.builtin.command:
+    cmd: >-
+      alternatives --set java
+      /usr/lib/jvm/java-{{ java_default_version }}-{{ java_provider }}{{ (java_default_version == '1.8.0') | ternary('/jre/bin/java', '/bin/java') }}
+  changed_when: false
+  when: java_set_default_version
   tags: ['java']

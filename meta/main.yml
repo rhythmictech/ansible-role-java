@@ -2,13 +2,18 @@
 
 galaxy_info:
   author: Rhythmic Operations <opsteam@rhythmictech.com>
-  description: Ansible Role for Oracle/Sun JDK
+  description: Ansible Role for OpenJDK
   company: Rhythmic Technologies, Inc.
   license: Proprietary
-  min_ansible_version: 2.0
+  min_ansible_version: 2.10
   platforms:
-    - name: CentOS
+    - name: EL
       versions:
-        - "6"
-        - "7"
+        - "8"
+        - "9"
+        - "10"
+    - name: Amazon
+      versions:
+        - "2"
+        - "2023"
 dependencies: []
