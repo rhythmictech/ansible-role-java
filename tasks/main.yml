@@ -1,4 +1,21 @@
 ---
+- name: import Amazon Corretto RPM GPG key
+  ansible.builtin.rpm_key:
+    key: https://yum.corretto.aws/corretto.key
+    state: present
+  when: java_configure_corretto_repo
+  tags: ['java']
+
+- name: configure Amazon Corretto repository
+  ansible.builtin.get_url:
+    url: https://yum.corretto.aws/corretto.repo
+    dest: /etc/yum.repos.d/corretto.repo
+    owner: root
+    group: root
+    mode: '0644'
+  when: java_configure_corretto_repo
+  tags: ['java']
+
 - name: install java packages
   ansible.builtin.dnf:
     name: "{{ java_versions | map('regex_replace', '^(.*)$', 'java-\\1-' + java_provider) | list }}"

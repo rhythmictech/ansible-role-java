@@ -18,4 +18,7 @@ java_install_jre: True
 # install JDK devel packages
 java_install_devel: False
 
+# configure the Amazon Corretto yum/dnf repository
+java_configure_corretto_repo: False
+
 java_set_default_version: False

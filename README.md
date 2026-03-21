@@ -19,6 +19,7 @@ Role Variables
 | `java_provider` | `openjdk` | Java provider (`openjdk` or `amazon-corretto`) |
 | `java_install_jre` | `True` | Install JRE packages |
 | `java_install_devel` | `False` | Install JDK devel packages |
+| `java_configure_corretto_repo` | `False` | Configure the Amazon Corretto yum/dnf repository |
 | `java_set_default_version` | `False` | Set default Java version via alternatives |
 
 Example Playbook
@@ -34,13 +35,14 @@ Example Playbook
       java_set_default_version: True
 ```
 
-Install only devel packages (e.g., Amazon Corretto 1.8.0 on EL10):
+Install Amazon Corretto with repo configuration (e.g., Corretto 1.8.0 on EL10):
 
 ```yaml
 - hosts: servers
   roles:
     - role: ansible-role-java
       java_provider: amazon-corretto
+      java_configure_corretto_repo: True
       java_versions:
         - "1.8.0"
       java_install_jre: False
